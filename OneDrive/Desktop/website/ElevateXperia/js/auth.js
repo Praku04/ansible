@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Here you would typically send the data to your server for registration
             // For demo purposes, we'll just show a success message and redirect
             alert(`Thank you for registering, ${name}! You can now log in with your credentials.`);
-            window.location.href = 'login.html';
+            window.location.href = 'bootstrap-login.html';
         });
     }
 
@@ -66,12 +66,20 @@ document.addEventListener('DOMContentLoaded', function() {
         logoutButton.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Clear authentication data
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('userRole');
-            
-            // Redirect to home page
-            window.location.href = '../index.html';
+            // If we're on the logout page, the button will handle the logout
+            // Otherwise, redirect to the logout page
+            if (!window.location.href.includes('logout.html')) {
+                // Redirect to logout page
+                const isInPagesDir = window.location.href.includes('/pages/');
+                window.location.href = isInPagesDir ? 'bootstrap-logout.html' : 'pages/bootstrap-logout.html';
+            } else {
+                // Clear authentication data
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('userRole');
+                
+                // Redirect to home page
+                window.location.href = '../index.html';
+            }
         });
     }
 
@@ -84,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Check if we're on the admin dashboard page and redirect if not authorized
         const isAdminDashboard = window.location.href.includes('admin-dashboard.html');
         if (isAdminDashboard && (!authToken || userRole !== 'admin')) {
-            window.location.href = 'login.html';
+            window.location.href = 'bootstrap-login.html';
             return;
         }
         
@@ -104,15 +112,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const navList = navbarNav.querySelector('ul');
                 const logoutItem = document.createElement('li');
                 logoutItem.className = 'nav-item';
-                logoutItem.innerHTML = '<a class="nav-link btn btn-outline-light logout-btn" href="#" id="logoutButton">Logout</a>';
+                // Create logout button with proper path
+                const isInPagesDir = window.location.href.includes('/pages/');
+                const logoutPath = isInPagesDir ? 'bootstrap-logout.html' : 'pages/bootstrap-logout.html';
+                logoutItem.innerHTML = `<a class="nav-link btn btn-outline-light logout-btn" href="${logoutPath}" id="logoutButton">Logout</a>`;
                 navList.appendChild(logoutItem);
                 
                 // Add event listener to the newly created button
                 document.getElementById('logoutButton').addEventListener('click', function(e) {
                     e.preventDefault();
-                    localStorage.removeItem('authToken');
-                    localStorage.removeItem('userRole');
-                    window.location.reload();
+                    // Redirect to logout page instead of immediately logging out
+                    window.location.href = logoutPath;
                 });
             }
         }

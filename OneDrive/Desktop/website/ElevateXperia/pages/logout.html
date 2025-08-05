@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout - ElevateXperia</title>
+    <!-- Favicon -->
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .auth-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            padding-bottom: 40px;
+            background-color: var(--light-color);
+        }
+        
+        .auth-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .auth-image {
+            background-image: url('../assets/images/logout-illustration.svg');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 300px;
+            background-color: #f8f9fa;
+        }
+        
+        .auth-form {
+            padding: 40px;
+        }
+        
+        .auth-form h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .auth-btn {
+            height: 50px;
+            border-radius: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .auth-footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .auth-footer a {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .logout-message {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logout-message i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .logout-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">ElevateXperia</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="immersion-program.html">Immersion Program</a></li>
+                    <li class="nav-item"><a class="nav-link" href="leadership-walk.html">Leadership Walk</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-primary login-btn" href="login.html">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Logout Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="auth-card bg-white">
+                        <div class="row g-0">
+                            <div class="col-md-6 d-none d-md-block auth-image"></div>
+                            <div class="col-md-6">
+                                <div class="auth-form">
+                                    <h2 class="text-center">Logout</h2>
+                                    
+                                    <div class="logout-message">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <h4>Are you sure you want to logout?</h4>
+                                        <p class="text-muted">Your session will be terminated and you'll need to login again to access your account.</p>
+                                    </div>
+                                    
+                                    <div class="logout-options">
+                                        <a href="../index.html" class="btn btn-outline-secondary">Cancel</a>
+                                        <button id="logoutButton" class="btn btn-danger">Logout</button>
+                                    </div>
+                                    
+                                    <div class="auth-footer">
+                                        <p>Need help? <a href="contact.html">Contact Support</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/animations.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        // Logout functionality
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            // Clear authentication data
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userRole');
+            
+            // Show success message
+            const authForm = document.querySelector('.auth-form');
+            authForm.innerHTML = `
+                <div class="text-center">
+                    <i class="fas fa-check-circle" style="font-size: 48px; color: var(--success-color); margin-bottom: 20px;"></i>
+                    <h3>Logged Out Successfully</h3>
+                    <p class="mb-4">You have been logged out of your account.</p>
+                    <a href="../index.html" class="btn btn-primary">Return to Homepage</a>
+                </div>
+            `;
+            
+            // Update navigation after a short delay
+            setTimeout(function() {
+                // Redirect to home page
+                window.location.href = '../index.html';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

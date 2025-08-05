@@ -1,18 +1,18 @@
 /* Global Styles */
 :root {
-    --primary-color: #5D3FD3; /* Vibrant Purple */
-    --secondary-color: #1E3799; /* Rich Blue */
-    --accent-color: #FF2E63; /* Bright Pink */
-    --dark-color: #121420; /* Deep Dark */
+    --primary-color: #3A5A78; /* Elegant Navy Blue */
+    --secondary-color: #8E9AAF; /* Soft Slate Blue */
+    --accent-color: #D8A47F; /* Warm Copper */
+    --dark-color: #2C3E50; /* Deep Charcoal */
     --light-color: #f8f9fa;
-    --success-color: #00C851; /* Bright Green */
-    --warning-color: #FFD700; /* Gold */
-    --danger-color: #FF3547; /* Bright Red */
+    --success-color: #5D8A66; /* Muted Green */
+    --warning-color: #E6B89C; /* Soft Peach */
+    --danger-color: #9E5A63; /* Muted Burgundy */
     --gray-color: #6c757d;
     --transition: all 0.3s ease;
-    --primary-color-rgb: 93, 63, 211; /* RGB values for Vibrant Purple */
-    --secondary-color-rgb: 30, 55, 153; /* RGB values for Rich Blue */
-    --accent-color-rgb: 255, 46, 99; /* RGB values for Bright Pink */
+    --primary-color-rgb: 58, 90, 120; /* RGB values for Elegant Navy Blue */
+    --secondary-color-rgb: 142, 154, 175; /* RGB values for Soft Slate Blue */
+    --accent-color-rgb: 216, 164, 127; /* RGB values for Warm Copper */
 }
 
 body {

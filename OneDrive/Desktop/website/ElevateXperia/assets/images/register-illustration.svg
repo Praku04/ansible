@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f8f9fa" rx="10" ry="10"/>
+  
+  <!-- Device Frame -->
+  <rect x="100" y="30" width="200" height="200" rx="10" ry="10" fill="#ffffff" stroke="#00BCD4" stroke-width="3"/>
+  
+  <!-- Screen -->
+  <rect x="110" y="40" width="180" height="180" rx="5" ry="5" fill="#f0f9ff"/>
+  
+  <!-- Registration Form -->
+  <rect x="130" y="60" width="140" height="22" rx="5" ry="5" fill="#ffffff" stroke="#3F51B5" stroke-width="1"/>
+  <rect x="130" y="90" width="140" height="22" rx="5" ry="5" fill="#ffffff" stroke="#3F51B5" stroke-width="1"/>
+  <rect x="130" y="120" width="140" height="22" rx="5" ry="5" fill="#ffffff" stroke="#3F51B5" stroke-width="1"/>
+  <rect x="130" y="150" width="140" height="22" rx="5" ry="5" fill="#ffffff" stroke="#3F51B5" stroke-width="1"/>
+  <rect x="130" y="180" width="140" height="25" rx="5" ry="5" fill="#00BCD4"/>
+  
+  <!-- Form Icons -->
+  <circle cx="142" cy="71" r="5" fill="#3F51B5"/>
+  <circle cx="142" cy="101" r="5" fill="#3F51B5"/>
+  <circle cx="142" cy="131" r="5" fill="#3F51B5"/>
+  <circle cx="142" cy="161" r="5" fill="#3F51B5"/>
+  
+  <!-- User Icon -->
+  <path d="M142 71 L139 68 L145 68 Z" fill="#ffffff"/>
+  <circle cx="142" cy="65.5" r="3" fill="#ffffff"/>
+  
+  <!-- Email Icon -->
+  <rect x="139" y="99" width="6" height="4" rx="1" ry="1" fill="#ffffff"/>
+  <path d="M139 99 L142 102 L145 99" fill="#3F51B5" stroke="#ffffff" stroke-width="0.5"/>
+  
+  <!-- Phone Icon -->
+  <rect x="139" y="129" width="6" height="4" rx="1" ry="1" fill="#ffffff"/>
+  <circle cx="142" cy="135" r="1" fill="#ffffff"/>
+  
+  <!-- Lock Icon -->
+  <rect x="139" y="159" width="6" height="4" rx="1" ry="1" fill="#ffffff"/>
+  <rect x="141" y="157" width="2" height="2" fill="#ffffff"/>
+  
+  <!-- Register Text -->
+  <text x="200" y="197" font-family="Arial" font-size="12" font-weight="bold" fill="white" text-anchor="middle">REGISTER</text>
+  
+  <!-- Field Placeholders -->
+  <text x="155" y="74" font-family="Arial" font-size="8" fill="#6c757d" text-anchor="start">Full Name</text>
+  <text x="155" y="104" font-family="Arial" font-size="8" fill="#6c757d" text-anchor="start">Email</text>
+  <text x="155" y="134" font-family="Arial" font-size="8" fill="#6c757d" text-anchor="start">Phone</text>
+  <text x="155" y="164" font-family="Arial" font-size="8" fill="#6c757d" text-anchor="start">Password</text>
+  
+  <!-- Decorative Elements -->
+  <circle cx="70" cy="70" r="20" fill="#FF5722" opacity="0.7"/>
+  <circle cx="330" cy="230" r="25" fill="#3F51B5" opacity="0.7"/>
+  <circle cx="50" cy="200" r="15" fill="#00BCD4" opacity="0.7"/>
+  <circle cx="350" cy="80" r="15" fill="#FF5722" opacity="0.7"/>
+  
+  <!-- Abstract Lines -->
+  <path d="M30 150 Q100 100 30 50" stroke="#00BCD4" stroke-width="2" fill="none"/>
+  <path d="M370 150 Q300 200 370 250" stroke="#3F51B5" stroke-width="2" fill="none"/>
+  
+  <!-- Checkmark Elements -->
+  <circle cx="50" cy="150" r="10" fill="none" stroke="#4CAF50" stroke-width="2"/>
+  <path d="M45 150 L50 155 L55 145" stroke="#4CAF50" stroke-width="2" fill="none"/>
+  
+  <circle cx="350" cy="150" r="10" fill="none" stroke="#4CAF50" stroke-width="2"/>
+  <path d="M345 150 L350 155 L355 145" stroke="#4CAF50" stroke-width="2" fill="none"/>
+</svg>

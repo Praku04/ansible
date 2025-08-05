@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Analytics - ElevateXperia</title>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        .analytics-section {
+            padding: 100px 0 60px;
+        }
+        
+        .analytics-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .analytics-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .analytics-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .analytics-card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .analytics-card-title {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .analytics-card-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .analytics-card-content {
+            min-height: 200px;
+        }
+        
+        .analytics-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .analytics-card-footer a {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .analytics-card-footer a i {
+            margin-left: 5px;
+        }
+        
+        .analytics-card-footer span {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        
+        .analytics-tabs {
+            margin-bottom: 30px;
+        }
+        
+        .analytics-tabs .nav-link {
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin-right: 10px;
+            color: #6c757d;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .analytics-tabs .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .analytics-tabs .nav-link:hover:not(.active) {
+            background-color: rgba(var(--primary-color-rgb), 0.1);
+        }
+        
+        .setup-steps {
+            counter-reset: step-counter;
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .setup-step {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 25px;
+        }
+        
+        .setup-step:before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .setup-step h5 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .setup-step p {
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            color: #333;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .analytics-placeholder {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #6c757d;
+        }
+        
+        .analytics-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html"><img src="../assets/images/logo.svg" alt="ElevateXperia Logo" height="40"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="immersion-program.html">Immersion Program</a></li>
+                    <li class="nav-item"><a class="nav-link" href="leadership-walk.html">Leadership Walk</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="testimonials.html">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-primary login-btn" href="login.html">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="text-center">Website Analytics</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Analytics</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Analytics Section -->
+    <section class="analytics-section">
+        <div class="container">
+            <!-- Analytics Tabs -->
+            <ul class="nav nav-pills analytics-tabs" id="analyticsTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">Overview</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="setup-tab" data-bs-toggle="tab" data-bs-target="#setup" type="button" role="tab" aria-controls="setup" aria-selected="false">Setup Guide</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="traffic-tab" data-bs-toggle="tab" data-bs-target="#traffic" type="button" role="tab" aria-controls="traffic" aria-selected="false">Traffic</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="behavior-tab" data-bs-toggle="tab" data-bs-target="#behavior" type="button" role="tab" aria-controls="behavior" aria-selected="false">Behavior</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="conversion-tab" data-bs-toggle="tab" data-bs-target="#conversion" type="button" role="tab" aria-controls="conversion" aria-selected="false">Conversions</button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="analyticsTabsContent">
+                <!-- Overview Tab -->
+                <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3">
+                            <div class="analytics-card">
+                                <div class="analytics-card-header">
+                                    <div class="analytics-card-icon" style="background-color: var(--primary-color);">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="analytics-card-title">Visitors</h5>
+                                        <p class="analytics-card-description">Total website visitors</p>
+                                    </div>
+                                </div>
+                                <div class="analytics-card-content">
+                                    <div class="analytics-placeholder">
+                                        <i class="fas fa-chart-line"></i>
+                                        <p>Connect Google Analytics to view data</p>
+                                    </div>
+                                </div>
+                                <div class="analytics-card-footer">
+                                    <a href="#setup">View Details <i class="fas fa-arrow-right"></i></a>
+                                    <span>Last 30 days</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="analytics-card">
+                                <div class="analytics-card-header">
+                                    <div class="analytics-card-icon" style="background-color: var(--secondary-color);">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="analytics-card-title">Session Duration</h5>
+                                        <p class="analytics-card-description">Average time on site</p>
+                                    </div>
+                                </div>
+                                <div class="analytics-card-content">
+                                    <div class="analytics-placeholder">
+                                        <i class="fas fa-chart-bar"></i>
+                                        <p>Connect Google Analytics to view data</p>
+                                    </div>
+                                </div>
+                                <div class="analytics-card-footer">
+                                    <a href="#setup">View Details <i class="fas fa-arrow-right"></i></a>
+                                    <span>Last 30 days</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="analytics-card">
+                                <div class="analytics-card-header">
+                                    <div class="analytics-card-icon" style="background-color: var(--accent-color);">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="analytics-card-title">Traffic Sources</h5>
+                                        <p class="analytics-card-description">Where visitors come from</p>
+                                    </div>
+                                </div>
+                                <div class="analytics-card-content">
+                                    <div class="analytics-placeholder">
+                                        <i class="fas fa-chart-pie"></i>
+                                        <p>Connect Google Analytics to view data</p>
+                                    </div>
+                                </div>
+                                <div class="analytics-card-footer">
+                                    <a href="#setup">View Details <i class="fas fa-arrow-right"></i></a>
+                                    <span>Last 30 days</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="analytics-card">
+                                <div class="analytics-card-header">
+                                    <div class="analytics-card-icon" style="background-color: var(--success-color);">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="analytics-card-title">Conversions</h5>
+                                        <p class="analytics-card-description">Tour bookings & inquiries</p>
+                                    </div>
+                                </div>
+                                <div class="analytics-card-content">
+                                    <div class="analytics-placeholder">
+                                        <i class="fas fa-chart-area"></i>
+                                        <p>Connect Google Analytics to view data</p>
+                                    </div>
+                                </div>
+                                <div class="analytics-card-footer">
+                                    <a href="#setup">View Details <i class="fas fa-arrow-right"></i></a>
+                                    <span>Last 30 days</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Setup Guide Tab -->
+                <div class="tab-pane fade" id="setup" role="tabpanel" aria-labelledby="setup-tab">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <div class="analytics-card">
+                                <h4 class="mb-4">Google Analytics Setup Guide</h4>
+                                <p>Follow these steps to set up Google Analytics for your ElevateXperia website:</p>
+                                
+                                <ol class="setup-steps">
+                                    <li class="setup-step">
+                                        <h5>Create a Google Analytics Account</h5>
+                                        <p>If you don't already have one, go to <a href="https://analytics.google.com" target="_blank">analytics.google.com</a> and sign up for a Google Analytics account using your Google account.</p>
+                                    </li>
+                                    
+                                    <li class="setup-step">
+                                        <h5>Set Up a Property</h5>
+                                        <p>Create a new property for your ElevateXperia website. Select "Web" as the platform and enter your website URL.</p>
+                                    </li>
+                                    
+                                    <li class="setup-step">
+                                        <h5>Get Your Tracking ID</h5>
+                                        <p>After creating your property, you'll receive a tracking ID (UA-XXXXXXXX-X) or a Measurement ID (G-XXXXXXXXXX) if you're using Google Analytics 4.</p>
+                                    </li>
+                                    
+                                    <li class="setup-step">
+                                        <h5>Add the Tracking Code to Your Website</h5>
+                                        <p>Copy the tracking code provided by Google Analytics and add it to your website's HTML. Place the code just before the closing </head> tag on every page you want to track.</p>
+                                        <div class="code-block">
+                                            <!-- Global site tag (gtag.js) - Google Analytics -->
+                                            &lt;script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"&gt;&lt;/script&gt;
+                                            &lt;script&gt;
+                                              window.dataLayer = window.dataLayer || [];
+                                              function gtag(){dataLayer.push(arguments);}
+                                              gtag('js', new Date());
+                                            
+                                              gtag('config', 'G-XXXXXXXXXX');
+                                            &lt;/script&gt;
+                                        </div>
+                                        <p>Replace G-XXXXXXXXXX with your actual Measurement ID.</p>
+                                    </li>
+                                    
+                                    <li class="setup-step">
+                                        <h5>Set Up Goals and Conversions</h5>
+                                        <p>Configure goals in Google Analytics to track important actions on your website, such as:</p>
+                                        <ul>
+                                            <li>Tour bookings</li>
+                                            <li>Contact form submissions</li>
+                                            <li>Newsletter sign-ups</li>
+                                            <li>PDF downloads</li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li class="setup-step">
+                                        <h5>Verify Installation</h5>
+                                        <p>Use the Google Analytics real-time reports to verify that your tracking code is working correctly. Visit your website and check if your visit appears in the real-time reports.</p>
+                                    </li>
+                                </ol>
+                                
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    <strong>Need help?</strong> If you need assistance setting up Google Analytics for your ElevateXperia website, please contact our technical support team.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Traffic Tab -->
+                <div class="tab-pane fade" id="traffic" role="tabpanel" aria-labelledby="traffic-tab">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="analytics-card">
+                                <h4 class="mb-4">Traffic Overview</h4>
+                                <div class="analytics-placeholder" style="height: 400px;">
+                                    <i class="fas fa-chart-line"></i>
+                                    <p>Connect Google Analytics to view traffic data</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Behavior Tab -->
+                <div class="tab-pane fade" id="behavior" role="tabpanel" aria-labelledby="behavior-tab">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="analytics-card">
+                                <h4 class="mb-4">User Behavior</h4>
+                                <div class="analytics-placeholder" style="height: 400px;">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <p>Connect Google Analytics to view behavior data</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conversion Tab -->
+                <div class="tab-pane fade" id="conversion" role="tabpanel" aria-labelledby="conversion-tab">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="analytics-card">
+                                <h4 class="mb-4">Conversion Tracking</h4>
+                                <div class="analytics-placeholder" style="height: 400px;">
+                                    <i class="fas fa-chart-pie"></i>
+                                    <p>Connect Google Analytics to view conversion data</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="text-white mb-4">About ElevateXperia</h5>
+                    <p class="text-white-50">ElevateXperia offers transformative educational tours and immersion programs for students, institutions, and professionals, providing unique learning experiences at prestigious colleges and companies.</p>
+                    <div class="social-icons mt-4">
+                        <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5 class="text-white mb-4">Quick Links</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="analytics.html">Analytics</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5 class="text-white mb-4">Programs</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="immersion-program.html">Immersion Program</a></li>
+                        <li><a href="leadership-walk.html">Leadership Walk</a></li>
+                        <li><a href="#">Campus Tours</a></li>
+                        <li><a href="#">Corporate Visits</a></li>
+                        <li><a href="#">Customized Programs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-white mb-4">Contact Us</h5>
+                    <ul class="list-unstyled footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Education Street, Knowledge City, India</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> info@elevatexperia.com</li>
+                    </ul>
+                    <div class="mt-4">
+                        <h6 class="text-white">Subscribe to Newsletter</h6>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your Email">
+                            <button class="btn btn-primary" type="button">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2023 ElevateXperia. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="privacy-policy.html" class="text-white me-3">Privacy Policy</a>
+                    <a href="terms-of-service.html" class="text-white me-3">Terms of Service</a>
+                    <a href="sitemap.html" class="text-white me-3">Sitemap</a>
+                    <a href="faq.html" class="text-white">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/animations.js"></script>
+    <script src="../js/chatbot.js"></script>
+    <script src="../js/popup.js"></script>
+</body>
+</html>

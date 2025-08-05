@@ -2,7 +2,7 @@
 
 ## Deploying to Hostinger Shared Hosting
 
-This guide provides step-by-step instructions for deploying the ElevateXperia website to Hostinger shared hosting, setting up the database, configuring the contact form with email functionality, and implementing the AI-powered chatbot, tour booking system, and admin dashboard.
+This guide provides step-by-step instructions for deploying the ElevateXperia website to Hostinger shared hosting, setting up the database, configuring the contact form with email functionality, implementing the AI-powered chatbot, tour booking system, admin dashboard, and the new OAuth authentication system with Bootstrap-based login pages.
 
 ## Table of Contents
 
@@ -10,9 +10,10 @@ This guide provides step-by-step instructions for deploying the ElevateXperia we
 2. [Preparing Your Files](#preparing-your-files)
 3. [Uploading to Hostinger](#uploading-to-hostinger)
 4. [Setting Up the Database](#setting-up-the-database)
-5. [Configuring Email Functionality](#configuring-email-functionality)
-6. [Testing Your Website](#testing-your-website)
-7. [Troubleshooting](#troubleshooting)
+5. [Configuring OAuth Authentication](#configuring-oauth-authentication)
+6. [Configuring Email Functionality](#configuring-email-functionality)
+7. [Testing Your Website](#testing-your-website)
+8. [Troubleshooting](#troubleshooting)
 
 ## Prerequisites
 
@@ -22,21 +23,28 @@ Before you begin, make sure you have:
 - Your Hostinger control panel (hPanel) login credentials
 - A registered domain name (either through Hostinger or another registrar)
 - FTP client software (like FileZilla) installed on your computer
-- The complete ElevateXperia website files
+- The complete ElevateXperia website files including Bootstrap-based login pages
 - OpenAI API key for the AI-powered chatbot
+- OAuth credentials from Google, Facebook, Twitter, and LinkedIn developer platforms
 
 ## Preparing Your Files
 
 1. **Update Configuration Files**:
    - Open `php/db_config.php` and update the database credentials with the ones you'll create in Hostinger
+   - Open `php/config.php` and update the database credentials and OAuth settings
    - In `php/send_email.php`, `php/subscribe.php`, and `php/book_tour.php`, update the email addresses to your actual business email
    - Update the OpenAI API key in `php/chatbot_api.php` with your actual API key
 
-2. **Optimize Images and Assets**:
+2. **Verify Authentication Pages**:
+   - Ensure that the Bootstrap-based authentication pages (`pages/bootstrap-login.html` and `pages/bootstrap-register.html`) are included in your files
+   - Verify that the OAuth handler (`php/oauth_handler.php`) is present and properly configured
+   - Check that all navigation links in your website point to the Bootstrap authentication pages instead of the original login pages
+
+3. **Optimize Images and Assets**:
    - Make sure all images are properly optimized for web
    - The SVG files should already be optimized
 
-3. **Create a Backup**:
+4. **Create a Backup**:
    - Create a complete backup of your website files before uploading
 
 ## Uploading to Hostinger
@@ -90,6 +98,124 @@ Before you begin, make sure you have:
      define('DB_PASSWORD', 'your_db_password'); // Replace with your actual password
      define('DB_NAME', 'your_db_name'); // Replace with your actual database name
      ```
+   - Edit the `php/config.php` file on the server with your database and OAuth credentials:
+     ```php
+     // Database connection settings
+     define('DB_HOST', 'localhost');
+     define('DB_NAME', 'your_db_name'); // Replace with your actual database name
+     define('DB_USER', 'your_db_username'); // Replace with your actual username
+     define('DB_PASS', 'your_db_password'); // Replace with your actual password
+     
+     // JWT Secret Key for authentication tokens
+     define('JWT_SECRET', 'your_secret_key_for_jwt_tokens'); // Use a strong random string
+     
+     // OAuth Configuration
+     define('OAUTH_REDIRECT_URI', 'https://yourdomain.com/php/oauth_handler.php'); // Update with your domain
+     
+     // Google OAuth credentials
+     define('GOOGLE_CLIENT_ID', 'your-google-client-id');
+     define('GOOGLE_CLIENT_SECRET', 'your-google-client-secret');
+     
+     // Facebook OAuth credentials
+     define('FACEBOOK_APP_ID', 'your-facebook-app-id');
+     define('FACEBOOK_APP_SECRET', 'your-facebook-app-secret');
+     
+     // Twitter OAuth credentials
+     define('TWITTER_CONSUMER_KEY', 'your-twitter-consumer-key');
+     define('TWITTER_CONSUMER_SECRET', 'your-twitter-consumer-secret');
+     
+     // LinkedIn OAuth credentials
+     define('LINKEDIN_CLIENT_ID', 'your-linkedin-client-id');
+     define('LINKEDIN_CLIENT_SECRET', 'your-linkedin-client-secret');
+     ```
+
+## Configuring OAuth Authentication
+
+To enable social login functionality with Google, Facebook, Twitter, and LinkedIn, follow these steps:
+
+### 1. Register OAuth Applications
+
+#### Google OAuth Setup
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Navigate to "APIs & Services" > "Credentials"
+4. Click "Create Credentials" > "OAuth client ID"
+5. Configure the OAuth consent screen
+6. Set the application type to "Web application"
+7. Add your domain to the "Authorized JavaScript origins"
+8. Add `https://yourdomain.com/php/oauth_handler.php` to the "Authorized redirect URIs"
+9. Note down the Client ID and Client Secret
+
+#### Facebook OAuth Setup
+1. Go to [Facebook Developers](https://developers.facebook.com/)
+2. Create a new app or select an existing one
+3. Add the "Facebook Login" product to your app
+4. In the settings, add your domain to the "App Domains"
+5. In the Facebook Login settings, add `https://yourdomain.com/php/oauth_handler.php` as a valid OAuth redirect URI
+6. Note down the App ID and App Secret
+
+#### Twitter OAuth Setup
+1. Go to the [Twitter Developer Portal](https://developer.twitter.com/)
+2. Create a new app or select an existing one
+3. In the app settings, enable "3-legged OAuth"
+4. Add `https://yourdomain.com/php/oauth_handler.php` as a callback URL
+5. Note down the API Key (Consumer Key) and API Secret (Consumer Secret)
+
+#### LinkedIn OAuth Setup
+1. Go to the [LinkedIn Developer Portal](https://www.linkedin.com/developers/)
+2. Create a new app or select an existing one
+3. Request the "Sign In with LinkedIn" product
+4. Add `https://yourdomain.com/php/oauth_handler.php` as an authorized redirect URL
+5. Note down the Client ID and Client Secret
+
+### 2. Install Required PHP Libraries
+
+You'll need to install the necessary OAuth libraries using Composer. If Composer is not available on your Hostinger account, you can install the libraries locally and upload them:
+
+1. Create a `composer.json` file in your project root:
+   ```json
+   {
+     "require": {
+       "league/oauth2-google": "^4.0",
+       "league/oauth2-facebook": "^2.0",
+       "abraham/twitteroauth": "^4.0",
+       "league/oauth2-linkedin": "^5.1",
+       "firebase/php-jwt": "^6.0"
+     }
+   }
+   ```
+
+2. Run `composer install` locally
+3. Upload the `vendor` directory to your Hostinger server
+
+### 3. Update OAuth Configuration
+
+Update the OAuth credentials in `php/config.php` with the values you obtained from each provider:
+
+```php
+// OAuth Configuration
+define('OAUTH_REDIRECT_URI', 'https://yourdomain.com/php/oauth_handler.php'); // Update with your domain
+
+// Google OAuth credentials
+define('GOOGLE_CLIENT_ID', 'your-google-client-id');
+define('GOOGLE_CLIENT_SECRET', 'your-google-client-secret');
+
+// Facebook OAuth credentials
+define('FACEBOOK_APP_ID', 'your-facebook-app-id');
+define('FACEBOOK_APP_SECRET', 'your-facebook-app-secret');
+
+// Twitter OAuth credentials
+define('TWITTER_CONSUMER_KEY', 'your-twitter-consumer-key');
+define('TWITTER_CONSUMER_SECRET', 'your-twitter-consumer-secret');
+
+// LinkedIn OAuth credentials
+define('LINKEDIN_CLIENT_ID', 'your-linkedin-client-id');
+define('LINKEDIN_CLIENT_SECRET', 'your-linkedin-client-secret');
+```
+
+### 4. Verify OAuth Handler
+
+Make sure the `php/oauth_handler.php` file is properly uploaded and has the correct permissions (644).
 
 ## Configuring Email Functionality
 
