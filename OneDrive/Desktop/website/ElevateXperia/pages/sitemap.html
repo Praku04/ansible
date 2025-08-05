@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap - ElevateXperia</title>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        .sitemap-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .sitemap-section ul ul {
+            padding-left: 1.5rem;
+        }
+        
+        .sitemap-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sitemap-section a {
+            display: inline-block;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .sitemap-section a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+        
+        .sitemap-section h3 {
+            margin-top: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--secondary-color);
+        }
+        
+        .sitemap-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .sitemap-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .sitemap-icon {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html"><img src="../assets/images/logo.svg" alt="ElevateXperia Logo" height="40"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="immersion-program.html">Immersion Program</a></li>
+                    <li class="nav-item"><a class="nav-link" href="leadership-walk.html">Leadership Walk</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-primary login-btn" href="login.html">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1>Sitemap</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Sitemap</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sitemap Content -->
+    <section class="sitemap-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="sitemap-intro text-center mb-5">
+                        <p class="lead">Welcome to the ElevateXperia sitemap. This page provides an overview of all the content available on our website to help you navigate easily.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- Main Pages -->
+                <div class="col-lg-6 mb-4">
+                    <div class="sitemap-card">
+                        <h3><i class="fas fa-home sitemap-icon"></i> Main Pages</h3>
+                        <ul>
+                            <li><a href="../index.html"><i class="fas fa-angle-right sitemap-icon"></i> Home</a></li>
+                            <li><a href="about.html"><i class="fas fa-angle-right sitemap-icon"></i> About Us</a></li>
+                            <li>
+                                <a href="immersion-program.html"><i class="fas fa-angle-right sitemap-icon"></i> Immersion Program</a>
+                            </li>
+                            <li>
+                                <a href="leadership-walk.html"><i class="fas fa-angle-right sitemap-icon"></i> Leadership Walk</a>
+                            </li>
+                            <li><a href="gallery.html"><i class="fas fa-angle-right sitemap-icon"></i> Gallery</a></li>
+                            <li><a href="contact.html"><i class="fas fa-angle-right sitemap-icon"></i> Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Tour Pages -->
+                <div class="col-lg-6 mb-4">
+                    <div class="sitemap-card">
+                        <h3><i class="fas fa-globe sitemap-icon"></i> Tour Pages</h3>
+                        <ul>
+                            <li><a href="../tours.php"><i class="fas fa-angle-right sitemap-icon"></i> All Tours</a></li>
+                            <li><a href="../tour_details.php"><i class="fas fa-angle-right sitemap-icon"></i> Tour Details</a></li>
+                            <li><a href="../book_tour_form.php"><i class="fas fa-angle-right sitemap-icon"></i> Book a Tour</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- User Account -->
+                <div class="col-lg-6 mb-4">
+                    <div class="sitemap-card">
+                        <h3><i class="fas fa-user sitemap-icon"></i> User Account</h3>
+                        <ul>
+                            <li><a href="login.html"><i class="fas fa-angle-right sitemap-icon"></i> Login</a></li>
+                            <li><a href="register.html"><i class="fas fa-angle-right sitemap-icon"></i> Register</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Legal Pages -->
+                <div class="col-lg-6 mb-4">
+                    <div class="sitemap-card">
+                        <h3><i class="fas fa-gavel sitemap-icon"></i> Legal Pages</h3>
+                        <ul>
+                            <li><a href="privacy-policy.html"><i class="fas fa-angle-right sitemap-icon"></i> Privacy Policy</a></li>
+                            <li><a href="terms-of-service.html"><i class="fas fa-angle-right sitemap-icon"></i> Terms of Service</a></li>
+                            <li><a href="sitemap.html"><i class="fas fa-angle-right sitemap-icon"></i> Sitemap</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Admin Section -->
+                <div class="col-lg-6 mb-4">
+                    <div class="sitemap-card">
+                        <h3><i class="fas fa-user-shield sitemap-icon"></i> Admin Section</h3>
+                        <ul>
+                            <li><a href="../admin_dashboard.php"><i class="fas fa-angle-right sitemap-icon"></i> Admin Dashboard</a></li>
+                            <li><a href="../login.php"><i class="fas fa-angle-right sitemap-icon"></i> Admin Login</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Resources -->
+                <div class="col-lg-6 mb-4">
+                    <div class="sitemap-card">
+                        <h3><i class="fas fa-book sitemap-icon"></i> Resources</h3>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-angle-right sitemap-icon"></i> FAQs</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right sitemap-icon"></i> Blog</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right sitemap-icon"></i> Testimonials</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h4>ElevateXperia</h4>
+                    <p>Transformative educational experiences through immersive study tours to colleges and companies across India and worldwide.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="immersion-program.html">Immersion Program</a></li>
+                        <li><a href="leadership-walk.html">Leadership Walk</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+                    <h5>Programs</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Tech Company Tours</a></li>
+                        <li><a href="#">Engineering College Visits</a></li>
+                        <li><a href="#">Business School Programs</a></li>
+                        <li><a href="#">Medical Institution Tours</a></li>
+                        <li><a href="#">Research Center Visits</a></li>
+                        <li><a href="#">Customized Educational Tours</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h5>Contact Us</h5>
+                    <address>
+                        <p><img src="../assets/images/location-icon.svg" alt="Location" width="20" class="me-2"> 123 Education Street, New Delhi, India 110001</p>
+                        <p><img src="../assets/images/phone-icon.svg" alt="Phone" width="20" class="me-2"> +91 98765 43210</p>
+                        <p><img src="../assets/images/email-icon.svg" alt="Email" width="20" class="me-2"> info@elevatexperia.com</p>
+                    </address>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2023 ElevateXperia. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="privacy-policy.html" class="text-white me-3">Privacy Policy</a>
+                    <a href="terms-of-service.html" class="text-white me-3">Terms of Service</a>
+                    <a href="sitemap.html" class="text-white">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/animations.js"></script>
+</body>
+</html>

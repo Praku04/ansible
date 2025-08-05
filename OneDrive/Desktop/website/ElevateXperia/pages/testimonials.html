@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials - ElevateXperia</title>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        .testimonial-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(var(--primary-color-rgb), 0.15);
+            border-bottom: 4px solid var(--primary-color);
+        }
+        
+        .testimonial-card .quote-icon {
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 3px solid rgba(var(--primary-color-rgb), 0.2);
+        }
+        
+        .author-info h5 {
+            margin-bottom: 0.2rem;
+            color: var(--secondary-color);
+        }
+        
+        .author-info p {
+            margin-bottom: 0;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+        
+        .rating {
+            color: var(--warning-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .testimonial-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+            border-radius: 0 0 50% 50% / 20px;
+        }
+        
+        .testimonial-header h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-filters {
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background-color: white;
+            border: 2px solid rgba(var(--primary-color-rgb), 0.1);
+            color: var(--dark-color);
+            padding: 0.5rem 1.5rem;
+            margin: 0 0.5rem 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        
+        .video-testimonial {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-testimonial img {
+            width: 100%;
+            height: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .video-testimonial:hover img {
+            transform: scale(1.05);
+        }
+        
+        .video-testimonial .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background-color: rgba(var(--primary-color-rgb), 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .video-testimonial:hover .play-btn {
+            background-color: var(--accent-color);
+            width: 90px;
+            height: 90px;
+        }
+        
+        .video-testimonial .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 1.5rem;
+            color: white;
+        }
+        
+        .video-testimonial .caption h4 {
+            margin-bottom: 0.3rem;
+        }
+        
+        .video-testimonial .caption p {
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+        
+        .testimonial-cta {
+            background-color: rgba(var(--primary-color-rgb), 0.05);
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            margin-top: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-cta h3 {
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .testimonial-cta p {
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html"><img src="../assets/images/logo.svg" alt="ElevateXperia Logo" height="40"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="immersion-program.html">Immersion Program</a></li>
+                    <li class="nav-item"><a class="nav-link" href="leadership-walk.html">Leadership Walk</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="testimonials.html">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-primary login-btn" href="login.html">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Testimonial Header -->
+    <header class="testimonial-header text-center">
+        <div class="container">
+            <h1 data-aos="fade-up">What Our Participants Say</h1>
+            <p data-aos="fade-up" data-aos-delay="100">Discover how our educational tours have transformed the academic and professional journeys of students and institutions across India and beyond.</p>
+        </div>
+    </header>
+
+    <!-- Testimonial Filters -->
+    <section class="testimonial-filters">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button class="filter-btn active" data-filter="all">All Testimonials</button>
+                    <button class="filter-btn" data-filter="student">Students</button>
+                    <button class="filter-btn" data-filter="institution">Institutions</button>
+                    <button class="filter-btn" data-filter="parent">Parents</button>
+                    <button class="filter-btn" data-filter="video">Video Testimonials</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Written Testimonials -->
+    <section class="written-testimonials py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Student Testimonial 1 -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-category="student">
+                    <div class="testimonial-card">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-content">"The IIT Delhi tour organized by ElevateXperia was eye-opening! Getting to interact with professors and see cutting-edge research labs firsthand gave me clarity about my engineering aspirations. The campus tour and alumni interaction session were particularly inspiring."</p>
+                        <div class="testimonial-author">
+                            <img src="../assets/images/testimonials/student1.jpg" alt="Rahul Sharma">
+                            <div class="author-info">
+                                <h5>Rahul Sharma</h5>
+                                <p>12th Grade Student, Delhi Public School</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Institution Testimonial 1 -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100" data-category="institution">
+                    <div class="testimonial-card">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-content">"As the principal of a leading high school, I've seen firsthand how ElevateXperia's educational tours have broadened our students' horizons. Their meticulous planning, educational focus, and attention to safety make them our preferred partner for all educational excursions."</p>
+                        <div class="testimonial-author">
+                            <img src="../assets/images/testimonials/principal1.jpg" alt="Dr. Meera Kapoor">
+                            <div class="author-info">
+                                <h5>Dr. Meera Kapoor</h5>
+                                <p>Principal, Greenfield International School</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Parent Testimonial 1 -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-category="parent">
+                    <div class="testimonial-card">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="testimonial-content">"I was initially hesitant to send my daughter on the week-long tour to Singapore universities, but ElevateXperia's transparent communication and comprehensive safety measures put my mind at ease. The experience has significantly influenced her career decisions, and she returned with newfound confidence and clarity."</p>
+                        <div class="testimonial-author">
+                            <img src="../assets/images/testimonials/parent1.jpg" alt="Priya Malhotra">
+                            <div class="author-info">
+                                <h5>Priya Malhotra</h5>
+                                <p>Parent of Ananya, 11th Grade Student</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Student Testimonial 2 -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100" data-category="student">
+                    <div class="testimonial-card">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-content">"The Silicon Valley tech company tour was a dream come true! Visiting Google, Apple, and startups in the Bay Area gave me insights that no textbook could provide. The workshops on entrepreneurship and innovation were particularly valuable, and I've returned with a clear vision for my tech startup."</p>
+                        <div class="testimonial-author">
+                            <img src="../assets/images/testimonials/student2.jpg" alt="Aditya Patel">
+                            <div class="author-info">
+                                <h5>Aditya Patel</h5>
+                                <p>Computer Science Student, BITS Pilani</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Institution Testimonial 2 -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-category="institution">
+                    <div class="testimonial-card">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-content">"Our college has partnered with ElevateXperia for three consecutive years for our annual industrial exposure program. Their ability to secure access to top-tier companies and research institutions, combined with their educational approach to tour design, has significantly enhanced our curriculum's practical component."</p>
+                        <div class="testimonial-author">
+                            <img src="../assets/images/testimonials/professor1.jpg" alt="Prof. Rajiv Mehta">
+                            <div class="author-info">
+                                <h5>Prof. Rajiv Mehta</h5>
+                                <p>HOD, Mechanical Engineering, NIT Surathkal</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Parent Testimonial 2 -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100" data-category="parent">
+                    <div class="testimonial-card">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-content">"The medical institutions tour organized for my son, who aspires to be a doctor, was exceptionally well-planned. The exposure to AIIMS, CMC Vellore, and other premier medical institutions gave him a realistic understanding of medical education and career paths. The mentorship from practicing doctors was an invaluable bonus."</p>
+                        <div class="testimonial-author">
+                            <img src="../assets/images/testimonials/parent2.jpg" alt="Dr. Suresh Kumar">
+                            <div class="author-info">
+                                <h5>Dr. Suresh Kumar</h5>
+                                <p>Parent of Vikram, Medical Aspirant</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Testimonials -->
+    <section class="video-testimonials py-5 bg-light">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2 data-aos="fade-up">Video Testimonials</h2>
+                <p data-aos="fade-up" data-aos-delay="100">Watch our participants share their experiences and insights from our educational tours.</p>
+            </div>
+            
+            <div class="row" data-category="video">
+                <!-- Video Testimonial 1 -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up">
+                    <div class="video-testimonial">
+                        <img src="../assets/images/testimonials/video-thumb1.jpg" alt="Student Group Video">
+                        <div class="play-btn"><i class="fas fa-play"></i></div>
+                        <div class="caption">
+                            <h4>IIT Bombay Tour Experience</h4>
+                            <p>Students from Delhi Public School share their insights</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video Testimonial 2 -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="video-testimonial">
+                        <img src="../assets/images/testimonials/video-thumb2.jpg" alt="Principal Interview">
+                        <div class="play-btn"><i class="fas fa-play"></i></div>
+                        <div class="caption">
+                            <h4>International Education Tour Benefits</h4>
+                            <p>Interview with Dr. Anand Sharma, Education Consultant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial CTA -->
+    <section class="testimonial-cta">
+        <div class="container">
+            <h3 data-aos="fade-up">Share Your ElevateXperia Experience</h3>
+            <p data-aos="fade-up" data-aos-delay="100">Have you participated in one of our educational tours? We'd love to hear about your experience and how it has impacted your academic or professional journey.</p>
+            <a href="contact-us.html" class="btn btn-primary" data-aos="fade-up" data-aos-delay="200">Submit Your Testimonial</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h4>ElevateXperia</h4>
+                    <p>Transformative educational experiences through immersive study tours to colleges and companies across India and worldwide.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="immersion-program.html">Immersion Program</a></li>
+                        <li><a href="leadership-walk.html">Leadership Walk</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+                    <h5>Programs</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Tech Company Tours</a></li>
+                        <li><a href="#">Engineering College Visits</a></li>
+                        <li><a href="#">Business School Programs</a></li>
+                        <li><a href="#">Medical Institution Tours</a></li>
+                        <li><a href="#">Research Center Visits</a></li>
+                        <li><a href="#">Customized Educational Tours</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h5>Contact Us</h5>
+                    <address>
+                        <p><img src="../assets/images/location-icon.svg" alt="Location" width="20" class="me-2"> 123 Education Street, New Delhi, India 110001</p>
+                        <p><img src="../assets/images/phone-icon.svg" alt="Phone" width="20" class="me-2"> +91 98765 43210</p>
+                        <p><img src="../assets/images/email-icon.svg" alt="Email" width="20" class="me-2"> info@elevatexperia.com</p>
+                    </address>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2023 ElevateXperia. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="privacy-policy.html" class="text-white me-3">Privacy Policy</a>
+                    <a href="terms-of-service.html" class="text-white me-3">Terms of Service</a>
+                    <a href="sitemap.html" class="text-white me-3">Sitemap</a>
+                    <a href="faq.html" class="text-white">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/animations.js"></script>
+    <script>
+        // Testimonial Filtering
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const testimonialItems = document.querySelectorAll('[data-category]');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Show/hide testimonials based on filter
+                    testimonialItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Video testimonial click handler (placeholder for actual video modal)
+            const videoTestimonials = document.querySelectorAll('.video-testimonial');
+            videoTestimonials.forEach(video => {
+                video.addEventListener('click', function() {
+                    alert('Video testimonial would play in a modal here. This is a placeholder for the actual video functionality.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - ElevateXperia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        :root {
+            --sidebar-width: 250px;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+        
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .menu-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover, .menu-item.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .menu-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-footer {
+            padding: 15px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-sidebar {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            left: calc(var(--sidebar-width) - 20px);
+            top: 20px;
+            z-index: 1001;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-collapsed .sidebar {
+            transform: translateX(-100%);
+        }
+        
+        .sidebar-collapsed .main-content {
+            margin-left: 0;
+        }
+        
+        .sidebar-collapsed .toggle-sidebar {
+            left: 20px;
+        }
+        
+        /* Dashboard Cards */
+        .dashboard-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card {
+            display: flex;
+            align-items: center;
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+        
+        .stat-details h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .stat-details p {
+            color: #6c757d;
+            margin-bottom: 0;
+        }
+        
+        .bg-primary-light {
+            background-color: rgba(var(--primary-color-rgb), 0.1);
+            color: var(--primary-color);
+        }
+        
+        .bg-success-light {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+        
+        .bg-warning-light {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+        
+        .bg-info-light {
+            background-color: rgba(23, 162, 184, 0.1);
+            color: #17a2b8;
+        }
+        
+        /* Recent Activity */
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+        
+        .activity-details {
+            flex: 1;
+        }
+        
+        .activity-details h5 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .activity-details p {
+            color: #6c757d;
+            margin-bottom: 0;
+            font-size: 14px;
+        }
+        
+        .activity-time {
+            color: #adb5bd;
+            font-size: 12px;
+        }
+        
+        /* Charts */
+        .chart-container {
+            height: 300px;
+        }
+        
+        /* Table Styles */
+        .custom-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 5px;
+        }
+        
+        .custom-table th {
+            border: none;
+            color: #6c757d;
+            font-weight: 600;
+            padding: 12px 15px;
+        }
+        
+        .custom-table td {
+            border: none;
+            background-color: white;
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
+        
+        .custom-table tr td:first-child {
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+        
+        .custom-table tr td:last-child {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+        
+        .status-confirmed {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+        
+        .status-cancelled {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+        
+        .status-completed {
+            background-color: rgba(23, 162, 184, 0.1);
+            color: #17a2b8;
+        }
+        
+        /* User Profile */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-info h6 {
+            margin-bottom: 0;
+            color: white;
+        }
+        
+        .user-info p {
+            margin-bottom: 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .toggle-sidebar {
+                left: 20px;
+            }
+            
+            .sidebar-expanded .sidebar {
+                transform: translateX(0);
+            }
+            
+            .sidebar-expanded .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar Toggle Button -->
+        <button class="toggle-sidebar" id="toggleSidebar">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h4>ElevateXperia</h4>
+                <p>Admin Dashboard</p>
+            </div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">A</div>
+                <div class="user-info">
+                    <h6>Admin User</h6>
+                    <p>admin@example.com</p>
+                </div>
+            </div>
+            
+            <div class="sidebar-menu">
+                <a href="#" class="menu-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+                <a href="#" class="menu-item" data-section="bookings">
+                    <i class="fas fa-calendar-check"></i> Bookings
+                </a>
+                <a href="#" class="menu-item" data-section="users">
+                    <i class="fas fa-users"></i> Users
+                </a>
+                <a href="#" class="menu-item" data-section="programs">
+                    <i class="fas fa-graduation-cap"></i> Programs
+                </a>
+                <a href="#" class="menu-item" data-section="enquiries">
+                    <i class="fas fa-question-circle"></i> Enquiries
+                </a>
+                <a href="#" class="menu-item" data-section="gallery">
+                    <i class="fas fa-images"></i> Gallery
+                </a>
+                <a href="#" class="menu-item" data-section="settings">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+            </div>
+            
+            <div class="sidebar-footer">
+                <a href="#" class="menu-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard Section -->
+            <div class="content-section active" id="dashboard">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="mb-0">Dashboard</h2>
+                    <div>
+                        <button class="btn btn-outline-primary">
+                            <i class="fas fa-download me-2"></i> Export Report
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Stats Row -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="dashboard-card stat-card">
+                            <div class="stat-icon bg-primary-light">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>1,254</h3>
+                                <p>Total Users</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-card stat-card">
+                            <div class="stat-icon bg-success-light">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>845</h3>
+                                <p>Total Bookings</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-card stat-card">
+                            <div class="stat-icon bg-warning-light">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>128</h3>
+                                <p>New Enquiries</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-card stat-card">
+                            <div class="stat-icon bg-info-light">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>$24,568</h3>
+                                <p>Total Revenue</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row -->
+                <div class="row mt-4">
+                    <div class="col-md-8">
+                        <div class="dashboard-card">
+                            <h5 class="mb-4">Booking Statistics</h5>
+                            <div class="chart-container" id="bookingChart"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dashboard-card">
+                            <h5 class="mb-4">Program Distribution</h5>
+                            <div class="chart-container" id="programChart"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="dashboard-card">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="mb-0">Recent Activity</h5>
+                                <a href="#" class="text-decoration-none">View All</a>
+                            </div>
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon bg-primary-light">
+                                        <i class="fas fa-user-plus"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h5>New User Registration</h5>
+                                        <p>John Smith has registered a new account</p>
+                                        <span class="activity-time">2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon bg-success-light">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h5>New Booking Confirmed</h5>
+                                        <p>Leadership Walk program booked by Sarah Johnson</p>
+                                        <span class="activity-time">5 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon bg-warning-light">
+                                        <i class="fas fa-question-circle"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h5>New Enquiry Received</h5>
+                                        <p>Michael Brown has sent an enquiry about Tech Immersion</p>
+                                        <span class="activity-time">Yesterday</span>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon bg-info-light">
+                                        <i class="fas fa-comment"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h5>New Review Posted</h5>
+                                        <p>Emily Davis posted a 5-star review for Business Immersion</p>
+                                        <span class="activity-time">2 days ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="dashboard-card">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="mb-0">Recent Bookings</h5>
+                                <a href="#" class="text-decoration-none">View All</a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Program</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Sarah Johnson</td>
+                                            <td>Leadership Walk</td>
+                                            <td>Aug 15, 2023</td>
+                                            <td><span class="status-badge status-confirmed">Confirmed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Robert Wilson</td>
+                                            <td>Tech Immersion</td>
+                                            <td>Aug 18, 2023</td>
+                                            <td><span class="status-badge status-pending">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jennifer Lee</td>
+                                            <td>Medical Immersion</td>
+                                            <td>Aug 20, 2023</td>
+                                            <td><span class="status-badge status-confirmed">Confirmed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>David Miller</td>
+                                            <td>Business Immersion</td>
+                                            <td>Aug 12, 2023</td>
+                                            <td><span class="status-badge status-completed">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lisa Anderson</td>
+                                            <td>Engineering Immersion</td>
+                                            <td>Aug 10, 2023</td>
+                                            <td><span class="status-badge status-cancelled">Cancelled</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bookings Section -->
+            <div class="content-section" id="bookings">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="mb-0">Bookings Management</h2>
+                    <div>
+                        <button class="btn btn-outline-primary me-2">
+                            <i class="fas fa-filter me-2"></i> Filter
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i> Add New Booking
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="table-responsive">
+                        <table class="table custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>User</th>
+                                    <th>Program</th>
+                                    <th>Date</th>
+                                    <th>Participants</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#BK1001</td>
+                                    <td>Sarah Johnson</td>
+                                    <td>Leadership Walk</td>
+                                    <td>Aug 15, 2023</td>
+                                    <td>2</td>
+                                    <td>$1,200</td>
+                                    <td><span class="status-badge status-confirmed">Confirmed</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#BK1002</td>
+                                    <td>Robert Wilson</td>
+                                    <td>Tech Immersion</td>
+                                    <td>Aug 18, 2023</td>
+                                    <td>1</td>
+                                    <td>$850</td>
+                                    <td><span class="status-badge status-pending">Pending</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#BK1003</td>
+                                    <td>Jennifer Lee</td>
+                                    <td>Medical Immersion</td>
+                                    <td>Aug 20, 2023</td>
+                                    <td>3</td>
+                                    <td>$2,400</td>
+                                    <td><span class="status-badge status-confirmed">Confirmed</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#BK1004</td>
+                                    <td>David Miller</td>
+                                    <td>Business Immersion</td>
+                                    <td>Aug 12, 2023</td>
+                                    <td>2</td>
+                                    <td>$1,600</td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#BK1005</td>
+                                    <td>Lisa Anderson</td>
+                                    <td>Engineering Immersion</td>
+                                    <td>Aug 10, 2023</td>
+                                    <td>1</td>
+                                    <td>$950</td>
+                                    <td><span class="status-badge status-cancelled">Cancelled</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#BK1006</td>
+                                    <td>Michael Brown</td>
+                                    <td>Tech Immersion</td>
+                                    <td>Aug 22, 2023</td>
+                                    <td>2</td>
+                                    <td>$1,700</td>
+                                    <td><span class="status-badge status-confirmed">Confirmed</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#BK1007</td>
+                                    <td>Emily Davis</td>
+                                    <td>Leadership Walk</td>
+                                    <td>Aug 25, 2023</td>
+                                    <td>1</td>
+                                    <td>$600</td>
+                                    <td><span class="status-badge status-pending">Pending</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <p class="mb-0">Showing 1 to 7 of 24 entries</p>
+                        <nav>
+                            <ul class="pagination mb-0">
+                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Other sections would be implemented similarly -->
+            <div class="content-section" id="users">
+                <h2 class="mb-4">Users Management</h2>
+                <p>User management content would go here.</p>
+            </div>
+            
+            <div class="content-section" id="programs">
+                <h2 class="mb-4">Programs Management</h2>
+                <p>Programs management content would go here.</p>
+            </div>
+            
+            <div class="content-section" id="enquiries">
+                <h2 class="mb-4">Enquiries Management</h2>
+                <p>Enquiries management content would go here.</p>
+            </div>
+            
+            <div class="content-section" id="gallery">
+                <h2 class="mb-4">Gallery Management</h2>
+                <p>Gallery management content would go here.</p>
+            </div>
+            
+            <div class="content-section" id="settings">
+                <h2 class="mb-4">Settings</h2>
+                <p>Settings content would go here.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/animations.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/content-editor.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            checkAuth('admin');
+            
+            // Toggle sidebar
+            const toggleBtn = document.getElementById('toggleSidebar');
+            const adminContainer = document.querySelector('.admin-container');
+            
+            toggleBtn.addEventListener('click', function() {
+                adminContainer.classList.toggle('sidebar-collapsed');
+                adminContainer.classList.toggle('sidebar-expanded');
+            });
+            
+            // Menu navigation
+            const menuItems = document.querySelectorAll('.menu-item[data-section]');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all menu items
+                    menuItems.forEach(mi => mi.classList.remove('active'));
+                    
+                    // Add active class to clicked menu item
+                    this.classList.add('active');
+                    
+                    // Hide all content sections
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Show the corresponding content section
+                    const sectionId = this.getAttribute('data-section');
+                    document.getElementById(sectionId).classList.add('active');
+                    
+                    // On mobile, close the sidebar after navigation
+                    if (window.innerWidth < 992) {
+                        adminContainer.classList.add('sidebar-collapsed');
+                        adminContainer.classList.remove('sidebar-expanded');
+                    }
+                });
+            });
+            
+            // Logout button
+            const logoutBtn = document.getElementById('logoutBtn');
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                logout();
+            });
+            
+            // Initialize charts
+            // Booking Statistics Chart
+            const bookingChartOptions = {
+                series: [{
+                    name: 'Bookings',
+                    data: [30, 40, 35, 50, 49, 60, 70, 91, 125, 150, 160, 180]
+                }],
+                chart: {
+                    height: 250,
+                    type: 'line',
+                    toolbar: {
+                        show: false
+                    },
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 3
+                },
+                colors: ['#FFD700'], /* Yellow */
+                grid: {
+                    borderColor: '#e7e7e7',
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'],
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                },
+                yaxis: {
+                    title: {
+                        text: 'Number of Bookings'
+                    }
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return val + " bookings"
+                        }
+                    }
+                }
+            };
+            
+            if (document.getElementById('bookingChart')) {
+                const bookingChart = new ApexCharts(document.getElementById('bookingChart'), bookingChartOptions);
+                bookingChart.render();
+            }
+            
+            // Program Distribution Chart
+            const programChartOptions = {
+                series: [35, 25, 20, 15, 5],
+                chart: {
+                    width: '100%',
+                    height: 250,
+                    type: 'pie',
+                },
+                labels: ['Tech Immersion', 'Leadership Walk', 'Business Immersion', 'Medical Immersion', 'Engineering Immersion'],
+                colors: ['#FFD700', '#1e3cad', '#ffc107', '#36b9cc', '#e74a3b'], /* Yellow, Dark Blue, Amber, Cyan, Red */
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }],
+                legend: {
+                    position: 'bottom'
+                }
+            };
+            
+            if (document.getElementById('programChart')) {
+                const programChart = new ApexCharts(document.getElementById('programChart'), programChartOptions);
+                programChart.render();
+            }
+            
+            // Responsive behavior
+            function handleResize() {
+                if (window.innerWidth < 992) {
+                    adminContainer.classList.remove('sidebar-expanded');
+                    adminContainer.classList.add('sidebar-collapsed');
+                } else {
+                    adminContainer.classList.remove('sidebar-collapsed');
+                    adminContainer.classList.remove('sidebar-expanded');
+                }
+            }
+            
+            // Initial call
+            handleResize();
+            
+            // Add event listener for window resize
+            window.addEventListener('resize', handleResize);
+        });
+    </script>
+</body>
+</html>
