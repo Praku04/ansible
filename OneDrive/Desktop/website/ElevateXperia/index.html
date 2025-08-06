@@ -384,9 +384,9 @@
     <script>
 document.addEventListener("DOMContentLoaded", function() {
   const headlines = [
-    "Unlock Your Potential<br>Through Experiential Learning",
-    "Discover Educational Excellence<br>with ElevateXperia",
-    "Shape Your Future<br>with Global Study Tours"
+    "Unlock Your Potential<br>Through Experiential Learning.",
+    "Discover Educational Excellence<br>with ElevateXperia.",
+    "Shape Your Future<br>with Global Study Tours."
   ];
   const el = document.querySelector('.typewrite');
   let headlineIdx = 0;
@@ -409,11 +409,11 @@ document.addEventListener("DOMContentLoaded", function() {
           el.innerHTML = current + '<span class="type-cursor">|</span>';
         }
         charIdx++;
-        setTimeout(type, 100);
+        setTimeout(type, 70);
       } else {
         el.innerHTML = headlines[headlineIdx] + '<span class="type-cursor">|</span>';
         typing = false;
-        setTimeout(type, 2000);
+        setTimeout(type, 1500);
       }
     } else {
       if (charIdx > 0) {
