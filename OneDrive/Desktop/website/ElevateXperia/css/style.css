@@ -1,9 +1,9 @@
 /* Global Styles */
 :root {
-    --primary-color: #3A5A78; /* Elegant Navy Blue */
-    --secondary-color: #8E9AAF; /* Soft Slate Blue */
-    --accent-color: #D8A47F; /* Warm Copper */
-    --dark-color: #2C3E50; /* Deep Charcoal */
+    --primary-color:#14197a; /* Elegant Navy Blue */
+    --secondary-color: #ede893; /* Soft Slate Blue */
+    --accent-color:  #e14c4c; /* Warm Copper */
+    --dark-color: #18324d; /* Deep Charcoal */
     --light-color: #f8f9fa;
     --success-color: #5D8A66; /* Muted Green */
     --warning-color: #E6B89C; /* Soft Peach */
@@ -17,7 +17,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    color: #333;
+    color: #656565;
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -103,7 +103,7 @@ section {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-fill-color: transparent;
+    text-emphasis-color: transparent;
     font-weight: 800;
     letter-spacing: -0.5px;
 }
@@ -183,7 +183,7 @@ section {
 .hero-section {
     height: 100vh;
     min-height: 700px;
-    background: linear-gradient(135deg, rgba(108, 99, 255, 0.9) 0%, rgba(42, 42, 114, 0.9) 100%);
+    background: linear-gradient(135deg, #020541 0%, #780707 100%);
     background-size: cover;
     background-position: center;
     color: white;
@@ -191,11 +191,11 @@ section {
     align-items: center;
     position: relative;
     overflow: hidden;
-    padding: 150px 0 100px;
+    padding: 150px 0 200px;
     text-align: left;
 }
 
-.hero-section::before {
+/*.hero-section::before {
     content: '';
     position: absolute;
     top: 0;
@@ -204,20 +204,30 @@ section {
     height: 100%;
     background: url('../assets/images/hero-bg.svg');
     background-size: cover;
-    opacity: 0.1;
+    opacity: 0.4;
     z-index: 0;
 }
 
 .hero-section .container {
     position: relative;
     z-index: 1;
-}
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}*/
 
 .hero-section h1 {
-    font-size: 3.5rem;
+    font-size: 4rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    line-height: 1.;
+}
+
+.hero-section h1.typewrite {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
     line-height: 1.2;
 }
 
@@ -262,7 +272,7 @@ section {
     font-weight: 600;
 }
 
-.hero-image-container {
+/*.hero-image-container {
     position: relative;
     border-radius: 10px;
     overflow: hidden;
@@ -275,7 +285,7 @@ section {
 
 .hero-image:hover {
     transform: scale(1.05);
-}
+}*/
 
 /* Featured Tours Section */
 .tour-card {
@@ -505,4 +515,32 @@ address p {
 .back-to-top:hover {
     background-color: var(--secondary-color);
     color: white;
+}
+
+@media (max-width: 576px) {
+  .hero-section h1,
+  .hero-section h1.display-4,
+  .hero-section h1.typewrite {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+    word-break: break-word;
+    text-align: left;
+  }
+  .hero-section p.lead {
+    font-size: 1rem !important;
+  }
+}
+
+.type-cursor {
+  display: inline;
+  color: #ffffff; /* or your desired color */
+  font-weight: 400;
+  font-size: inherit;
+  animation: blink 1s steps(1) infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }

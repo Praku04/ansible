@@ -22,6 +22,17 @@
             color: #ffffff;
             font-weight: 500;
         }
+        .hero-section h1.typewrite {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+@media (max-width: 576px) {
+  .hero-section h1.typewrite {
+    font-size: 2rem;
+  }
+}
     </style>
 </head>
 <body>
@@ -39,10 +50,10 @@
                     <li class="nav-item"><a class="nav-link" href="pages/immersion-program.html">Immersion Program</a></li>
                     <li class="nav-item"><a class="nav-link" href="pages/leadership-walk.html">Leadership Walk</a></li>
                     <li class="nav-item"><a class="nav-link" href="pages/gallery.html">Gallery</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pages/testimonials.html">Testimonials</a></li>
+                    <!--<li class="nav-item"><a class="nav-link" href="pages/testimonials.html">Testimonials</a></li>-->
                     <li class="nav-item"><a class="nav-link" href="pages/contact-us.html">Contact Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pages/faq.html">FAQ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pages/tracking.html">Analytics</a></li>
+                    <!--<li class="nav-item"><a class="nav-link" href="pages/faq.html">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pages/tracking.html">Analytics</a></li>-->
                     <li class="nav-item"><a class="nav-link btn btn-primary login-btn" href="pages/bootstrap-login.html">Login</a></li>
                 </ul>
             </div>
@@ -51,24 +62,15 @@
 
     <!-- Hero Section -->
     <header class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <h1 class="display-4 fw-bold">Discover Educational Excellence</h1>
-                    <p class="lead">Experience transformative study tours to prestigious colleges and companies across India and worldwide.</p>
-                    <div class="hero-buttons">
-                        <a href="pages/immersion-program.html" class="btn btn-primary btn-lg me-3">Explore Programs</a>
-                        <a href="pages/contact.html" class="btn btn-outline-light btn-lg">Contact Us</a>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <div class="hero-image-container">
-                        <img src="assets/images/hero-bg.svg" alt="Students on tour" class="img-fluid rounded hero-image">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+  <div class="container text-center">
+    <h1 class="rotating-heading typewrite"></h1>
+    <p class="lead">Experience transformative study tours to prestigious colleges and companies across India and worldwide.</p>
+    <div class="hero-buttons mt-4">
+      <a href="pages/immersion-program.html" class="btn btn-primary btn-lg me-3">Explore Programs</a>
+      <a href="pages/contact.html" class="btn btn-outline-light btn-lg">Contact Us</a>
+    </div>
+  </div>
+</header>
 
     <!-- Featured Tours Section -->
     <section class="featured-tours py-5">
@@ -226,15 +228,18 @@
                     <p>Subscribe to our newsletter for the latest tour information, educational insights, and special offers.</p>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
-                    <form class="subscription-form" id="subscriptionForm">
+                    <form class="subscription-form" id="subscriptionForm" novalidate>
                         <div class="row g-2">
-                            <div class="col-md-8">
+                            <div class="col-md-8 mb-2 mb-md-0">
+                                <label for="subscriptionEmail" class="visually-hidden">Email Address</label>
                                 <input type="email" id="subscriptionEmail" class="form-control form-control-lg" placeholder="Your Email Address" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
                             </div>
                             <div class="col-md-4">
-                                <button type="submit" class="btn btn-light btn-lg w-100">Subscribe</button>
+                                <button type="submit" class="btn btn-light btn-lg w-100" id="subscribeBtn">Subscribe</button>
                             </div>
                         </div>
+                        <div id="subscriptionFeedback" class="mt-2"></div>
                     </form>
                 </div>
             </div>
@@ -376,5 +381,62 @@
     <script src="js/chatbot.js"></script>
     <script src="js/popup.js"></script>
     <script src="js/analytics.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+  const headlines = [
+    "Unlock Your Potential<br>Through Experiential Learning",
+    "Discover Educational Excellence<br>with ElevateXperia",
+    "Shape Your Future<br>with Global Study Tours"
+  ];
+  const el = document.querySelector('.typewrite');
+  let headlineIdx = 0;
+  let charIdx = 0;
+  let typing = true;
+
+  function type() {
+    if (typing) {
+      if (charIdx === 0) {
+        el.innerHTML = '';
+      }
+      if (charIdx < headlines[headlineIdx].length) {
+        let current = headlines[headlineIdx].slice(0, charIdx + 1);
+        // Prevent breaking HTML tags
+        let openTag = current.lastIndexOf('<');
+        let closeTag = current.lastIndexOf('>');
+        if (openTag > closeTag) {
+          el.innerHTML = current.slice(0, openTag) + '<span class="type-cursor">|</span>';
+        } else {
+          el.innerHTML = current + '<span class="type-cursor">|</span>';
+        }
+        charIdx++;
+        setTimeout(type, 100);
+      } else {
+        el.innerHTML = headlines[headlineIdx] + '<span class="type-cursor">|</span>';
+        typing = false;
+        setTimeout(type, 2000);
+      }
+    } else {
+      if (charIdx > 0) {
+        let current = headlines[headlineIdx].slice(0, charIdx - 1);
+        let openTag = current.lastIndexOf('<');
+        let closeTag = current.lastIndexOf('>');
+        if (openTag > closeTag) {
+          el.innerHTML = current.slice(0, openTag) + '<span class="type-cursor">|</span>';
+        } else {
+          el.innerHTML = current + '<span class="type-cursor">|</span>';
+        }
+        charIdx--;
+        setTimeout(type, 60);
+      } else {
+        el.innerHTML = ''; // No text, no cursor!
+        typing = true;
+        headlineIdx = (headlineIdx + 1) % headlines.length;
+        setTimeout(type, 800);
+      }
+    }
+  }
+  type();
+});
+</script>
 </body>
 </html>

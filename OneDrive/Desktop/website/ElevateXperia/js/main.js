@@ -45,18 +45,45 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Subscription form submission with database storage
+    // Subscription form submission with database storage and validation
     const subscriptionForm = document.getElementById('subscriptionForm');
     if (subscriptionForm) {
+        // Validate email function
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        // Add input event listener for real-time validation
+        const emailInput = document.getElementById('subscriptionEmail');
+        if (emailInput) {
+            emailInput.addEventListener('input', function() {
+                // Remove invalid class when user starts typing
+                this.classList.remove('is-invalid');
+            });
+        }
+        
         subscriptionForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const email = document.getElementById('subscriptionEmail').value;
+            const feedbackDiv = document.getElementById('subscriptionFeedback');
+            
+            // Validate email
+            if (!email || !validateEmail(email)) {
+                emailInput.classList.add('is-invalid');
+                return;
+            }
             
             // Show loading state
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerHTML;
-            submitBtn.innerHTML = 'Subscribing...';
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Subscribing...';
             submitBtn.disabled = true;
+            
+            // Clear previous feedback
+            if (feedbackDiv) {
+                feedbackDiv.innerHTML = '';
+            }
             
             // Create data object
             const formData = {
@@ -79,59 +106,51 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Show success or error message
                 if (data.success) {
-                    // Create success alert
-                    const alertDiv = document.createElement('div');
-                    alertDiv.className = 'alert alert-success mt-3';
-                    alertDiv.role = 'alert';
-                    alertDiv.innerHTML = data.message;
-                    
-                    // Insert alert after form
-                    this.appendChild(alertDiv);
+                    // Create success message
+                    if (feedbackDiv) {
+                        feedbackDiv.innerHTML = `<div class="alert alert-success mb-0">${data.message}</div>`;
+                    }
                     
                     // Reset form
                     this.reset();
                     
                     // Remove alert after 5 seconds
                     setTimeout(() => {
-                        alertDiv.remove();
+                        if (feedbackDiv) {
+                            feedbackDiv.innerHTML = '';
+                        }
                     }, 5000);
                 } else {
-                    // Create error alert
-                    const alertDiv = document.createElement('div');
-                    alertDiv.className = 'alert alert-danger mt-3';
-                    alertDiv.role = 'alert';
-                    alertDiv.innerHTML = data.message || 'An error occurred. Please try again.';
+                    // Create error message
+                    if (feedbackDiv) {
+                        feedbackDiv.innerHTML = `<div class="alert alert-danger mb-0">${data.message || 'An error occurred. Please try again.'}</div>`;
+                    }
                     
-                    // Insert alert after form
-                    this.appendChild(alertDiv);
-                    
-                    // Remove alert after 5 seconds
-                    setTimeout(() => {
-                        alertDiv.remove();
-                    }, 5000);
+                     // Remove error message after 5 seconds
+                     setTimeout(() => {
+                         if (feedbackDiv) {
+                             feedbackDiv.innerHTML = '';
+                         }
+                     }, 5000);
                 }
             })
             .catch(error => {
-                // Reset button
-                submitBtn.innerHTML = originalBtnText;
-                submitBtn.disabled = false;
-                
-                // Create error alert
-                const alertDiv = document.createElement('div');
-                alertDiv.className = 'alert alert-danger mt-3';
-                alertDiv.role = 'alert';
-                alertDiv.innerHTML = 'Network error. Please try again later.';
-                
-                // Insert alert after form
-                this.appendChild(alertDiv);
-                
-                // Remove alert after 5 seconds
-                setTimeout(() => {
-                    alertDiv.remove();
-                }, 5000);
-                
-                console.error('Error:', error);
-            });
+                  console.error('Error:', error);
+                  
+                  // Reset button
+                  submitBtn.innerHTML = originalBtnText;
+                  submitBtn.disabled = false;
+                  
+                  // Display network error message
+                  if (feedbackDiv) {
+                      feedbackDiv.innerHTML = '<div class="alert alert-danger mb-0">Network error. Please try again later.</div>';
+                      
+                      // Remove error message after 5 seconds
+                      setTimeout(() => {
+                          feedbackDiv.innerHTML = '';
+                      }, 5000);
+                  }
+              });
         });
     }
 

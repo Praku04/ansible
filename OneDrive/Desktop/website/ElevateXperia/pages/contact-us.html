@@ -58,7 +58,7 @@
             padding: 0.8rem 1.2rem;
             border-radius: 10px;
             border: 2px solid rgba(var(--primary-color-rgb), 0.1);
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
             transition: all 0.3s ease;
         }
         
@@ -74,6 +74,16 @@
         .contact-form .btn-primary {
             padding: 0.8rem 2rem;
             width: 100%;
+        }
+        
+        .contact-form .form-label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .contact-form .text-muted {
+            font-size: 0.8rem;
         }
         
         .map-container {
@@ -100,6 +110,33 @@
             color: white;
             font-size: 3rem;
             margin-bottom: 1rem;
+        }
+        
+        /* Responsive styles for contact form */
+        @media (max-width: 767.98px) {
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .contact-info-card i {
+                width: 60px;
+                height: 60px;
+                line-height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .map-container {
+                height: 300px;
+                margin-top: 2rem;
+            }
+            
+            .contact-header {
+                padding: 2rem 0;
+            }
+            
+            .contact-header h1 {
+                font-size: 2.2rem;
+            }
         }
         
         .contact-header p {
@@ -214,18 +251,32 @@
                 <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
                     <div class="contact-form">
                         <h2 class="mb-4">Send Us a Message</h2>
-                        <form id="contactForm">
+                        <form id="contactForm" novalidate>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Your Name" required>
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
                                 </div>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="Your Email" required>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Your Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
                                 </div>
                             </div>
-                            <input type="text" class="form-control" placeholder="Subject" required>
-                            <textarea class="form-control" placeholder="Your Message" required></textarea>
-                            <button type="submit" class="btn btn-primary">Send Message</button>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                                <small class="text-muted">Optional, but please provide a valid number if entered</small>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" placeholder="Enter message subject" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="form-label">Your Message</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Enter your message" required></textarea>
+                            </div>
+                            <div id="formFeedback"></div>
+                            <button type="submit" class="btn btn-primary w-100">Send Message</button>
                         </form>
                     </div>
                 </div>
@@ -324,22 +375,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/animations.js"></script>
+    <script src="../js/contact.js"></script>
     <script>
-        // Form submission handling
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Here you would typically send the form data to a server
-            // For demonstration, we'll just show a success message
-            
-            const formElements = this.elements;
-            for (let i = 0; i < formElements.length; i++) {
-                if (formElements[i].type !== 'submit') {
-                    formElements[i].value = '';
-                }
-            }
-            
-            alert('Thank you for your message! We will get back to you soon.');
+        // Initialize AOS animations
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
         });
     </script>
 </body>
